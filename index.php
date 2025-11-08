@@ -97,7 +97,7 @@ if ($matches_data === false) {
     <header>
         <div class="container header-content">
             <!-- Header Title -->
-            <h1>Footy <span style="color: var(--accent);">Highlights</span> Central</h1>
+            <h1>Football <span style="color: var(--accent);">Highlights</span> Portal</h1>
             
             <!-- Navigation Links -->
             <nav class="main-nav">
@@ -122,7 +122,7 @@ if ($matches_data === false) {
 
     <main class="container">
         <!-- Main Highlights Section -->
-        <h2 class="section-title" id="highlights">Latest & Greatest Football Highlights</h2>
+        <h2 class="section-title" id="highlights">Retro Football Matches Highlights</h2>
 
         <?php if ($error !== null): ?>
             <div id="message" class="error-message">
@@ -164,7 +164,9 @@ if ($matches_data === false) {
         <!-- --- ABOUT US SECTION (New Placeholder) --- -->
         <section id="about-us" class="info-section">
             <h2 class="section-title">About Our Portal</h2>
-            <p>We are dedicated to compiling the most memorable and exciting football highlights from around the globe. Our mission is to provide fans with quick access to the matches that made history, from classic World Cup moments to dramatic league deciders.</p>
+            <p>Welcome to **Football Highlights Portal**, your dedicated hub for the most **electrifying football moments**. Our mission is simple: to save you time and deliver pure footballing joy by curating highlights from across the global game, making sure you never miss a goal, save, or dramatic turn of events.</p>
+            <p>We diligently cover a wide spectrum of the beautiful game, including **major international tournaments** (like the World Cup and Euros), the **top European leagues** (Premier League, La Liga, Serie A, Bundesliga, Ligue 1), and historic club competitions (UEFA Champions League). Our library is constantly growing to ensure coverage of both recent matches and classic historical moments.</p>
+            <p>Beyond content, we prioritize your **user experience**. Use the **live search bar** to quickly find highlights by team or competition, and switch between **dark and light modes** using the toggle button for comfortable viewing day or night. We're committed to keeping the portal fast, clean, and up-to-date for every passionate football fan.</p>
             <p>Enjoy the best of football, all in one place!</p>
         </section>
 
@@ -196,7 +198,6 @@ if ($matches_data === false) {
             <!-- Feedback Form -->
             <div id="feedback-section" class="feedback-card">
                 <h3>Rate Our Website and Share Comments</h3>
-                <p>Rate us from 1 to 5 stars and let us know what you think!</p>
                 
                 <form id="feedback-form">
                     <!-- Star Rating Input -->
@@ -228,7 +229,7 @@ if ($matches_data === false) {
                 <a href="#about-us">Our Team</a>
                 <a href="#contact-us">Support</a>
             </div>
-            <p>&copy; <?php echo date("Y"); ?> Footy Highlights Central. | Built for Fans.</p>
+            <p>&copy; <?php echo date("Y"); ?> Football Highlights Portal. | Built for Fans.</p>
         </div>
     </footer>
     
