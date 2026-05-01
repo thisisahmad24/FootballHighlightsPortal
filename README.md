@@ -1,5 +1,30 @@
 # ⚽ GoalGate: The Ultimate Footy Hub 🏆
 
+Welcome to **GoalGate**, a premium, automated football highlights platform built for the modern fan.
+
+## 🚀 Live Deployment Instructions
+
+This project is optimized for **Vercel**. To deploy:
+1. Push this repo to GitHub.
+2. Connect the repo to Vercel.
+3. Add the following Environment Variables in Vercel Settings:
+   - `NEXT_PUBLIC_SUPABASE_URL`: `https://uugcytfecejvrwhtwbfv.supabase.co`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: `sb_publishable_kMoFXsgMj5_-3njQbw1ZGA_nFkf6Acz`
+   - `API_FOOTBALL_KEY`: `f2ea830942msh790c32c04190c9dp131247jsn77ed9e66fca6`
+
+## ✨ Features
+- **Premium UI**: Glassmorphism aesthetic with "Night-Mode Pro" theme.
+- **Automated Data**: Real-time match highlights via API-Football.
+- **Global Feedback**: Interactive fan rating system powered by Supabase.
+- **Responsive**: Fully optimized for mobile and desktop viewing.
+
+## 🛠️ Tech Stack
+- **Framework**: Next.js 15 (React 19)
+- **Database**: Supabase (PostgreSQL)
+- **Styling**: Vanilla CSS (Premium Custom Design)
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+
 A simple, dynamic web portal built using **PHP**, **JavaScript**, and **CSS** to display the latest and greatest football highlights from across the globe.  
 The portal includes features for content filtering, aesthetic customization, and user feedback submission.
 
