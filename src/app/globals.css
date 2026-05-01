@@ -1,0 +1,490 @@
+/* 
+    GoalGate: The Ultimate Footy Hub 
+    Premium "Night-Mode Pro" Design System
+*/
+
+:root {
+    /* Premium Dark Theme (Night-Mode Pro) */
+    --bg-deep: #05070a;
+    --bg-surface: #0f1218;
+    --bg-card: rgba(25, 30, 40, 0.6);
+    --accent: #00f2ff; /* Cyber Cyan */
+    --accent-glow: rgba(0, 242, 255, 0.3);
+    --text-main: #ffffff;
+    --text-dim: #94a3b8;
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(15, 18, 24, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --star-gold: #ffcc00;
+    
+    /* Animation Tokens */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light-mode {
+    --bg-deep: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --accent: #0284c7;
+    --accent-glow: rgba(2, 132, 199, 0.2);
+    --text-main: #0f172a;
+    --text-dim: #64748b;
+    --border-subtle: rgba(0, 0, 0, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.1);
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-outfit), sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.6;
+    transition: var(--transition-smooth);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* --- Premium Header & Navigation --- */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+header h1 {
+    font-family: var(--font-oswald), sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin: 0;
+    background: linear-gradient(to right, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: var(--transition-smooth);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* --- Search & Toggle --- */
+.search-container {
+    position: relative;
+    width: 280px;
+}
+
+#search-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    padding: 0.7rem 1.2rem;
+    border-radius: 99px;
+    color: var(--text-main);
+    font-family: inherit;
+    transition: var(--transition-smooth);
+}
+
+#search-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 0.6rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+}
+
+/* --- Live Ticker --- */
+.live-ticker {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.8rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker-content {
+    display: inline-block;
+    animation: ticker 40s linear infinite;
+}
+
+.live-badge {
+    background: #ff4444;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-right: 2rem;
+    vertical-align: middle;
+}
+
+.ticker-match {
+    margin-right: 3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* --- Hero / Section Title --- */
+.section-title {
+    font-family: var(--font-oswald), sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+    margin: 4rem 0 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.section-title span.highlight {
+    color: var(--accent);
+    position: relative;
+}
+
+/* --- Match Grid (The Heart of GoalGate) --- */
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 5rem;
+}
+
+.match-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.match-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    height: 100%;
+}
+
+.match-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+}
+
+.thumbnail-wrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.thumbnail-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.match-card:hover .thumbnail-wrapper img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 1.8rem;
+}
+
+.card-content h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0.5rem 0 0.8rem;
+    line-height: 1.3;
+    transition: color 0.3s;
+}
+
+.match-card:hover .card-content h2 {
+    color: var(--accent);
+}
+
+.card-content p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin: 0 0 1.5rem;
+}
+
+.category-badge {
+    background: var(--accent-glow);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.trending-badge {
+    background: rgba(255, 68, 68, 0.15);
+    color: #ff4444;
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.match-date {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+/* --- Info Sections (About / Contact) --- */
+.info-section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.info-section h2 {
+    font-size: 2.5rem;
+}
+
+.contact-feedback-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.contact-card, .feedback-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    padding: 2.5rem;
+    border-radius: 32px;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.whatsapp-link { background: #25d366; color: #fff; }
+.email-link { background: #ea4335; color: #fff; }
+
+.contact-link:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+/* --- Premium Feedback UI --- */
+#feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.star-rating input { display: none; }
+.star-rating label {
+    font-size: 2rem;
+    color: #334155;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: var(--star-gold);
+}
+
+#feedback-comment {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    padding: 1.2rem;
+    border-radius: 16px;
+    color: var(--text-main);
+    font-family: inherit;
+    resize: none;
+    min-height: 120px;
+    transition: var(--transition-smooth);
+}
+
+#feedback-comment:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#submit-feedback {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+#submit-feedback:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px var(--accent-glow);
+}
+
+/* --- Footer --- */
+footer {
+    padding: 4rem 0;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 5rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 1024px) {
+    .contact-feedback-grid {
+        grid-template-columns: 1fr;
+    }
+    .section-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .search-container {
+        width: 100%;
+    }
+    .main-nav {
+        display: none;
+    }
+}
