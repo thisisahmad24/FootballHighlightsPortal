@@ -1,4 +1,4 @@
-# ⚽ Football Highlights Portal 🏆
+# ⚽ GoalGate: The Ultimate Footy Hub 🏆
 
 A simple, dynamic web portal built using **PHP**, **JavaScript**, and **CSS** to display the latest and greatest football highlights from across the globe.  
 The portal includes features for content filtering, aesthetic customization, and user feedback submission.
