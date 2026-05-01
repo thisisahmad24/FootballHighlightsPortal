@@ -1,125 +1,118 @@
-// JavaScript for the Football Highlights Portal (Theme Toggle, Search, and Text File Feedback)
+/**
+ * GoalGate: The Ultimate Footy Hub
+ * Client-side Logic (Search, Theme Toggle, Feedback)
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+    // --- Theme Toggle Logic ---
+    const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
-    const toggleButton = document.getElementById('theme-toggle');
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('goalgate-theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('goalgate-theme', currentTheme);
+        
+        // Add a nice scale effect on click
+        themeToggle.style.transform = 'scale(0.9)';
+        setTimeout(() => themeToggle.style.transform = 'scale(1)', 100);
+    });
+
+    // --- Live Search Logic ---
     const searchInput = document.getElementById('search-input');
-    const matchGrid = document.getElementById('match-grid');
+    const matchCards = document.querySelectorAll('.match-card-link');
+
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+
+        matchCards.forEach(card => {
+            const searchData = card.getAttribute('data-search');
+            // Also search within the category badge text
+            const categoryText = card.querySelector('.category-badge').textContent.toLowerCase();
+            
+            if (searchData.includes(searchTerm) || categoryText.includes(searchTerm)) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.4s ease forwards';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+
+    // --- AJAX Feedback Submission ---
     const feedbackForm = document.getElementById('feedback-form');
     const feedbackMessage = document.getElementById('feedback-message');
-    const matchCards = matchGrid ? Array.from(matchGrid.querySelectorAll('.match-card-link')) : [];
-    
-    // --- 1. UTILITY FUNCTIONS ---
-    
-    // Function to display messages in the feedback section
-    const showMessage = (message, type) => {
-        feedbackMessage.textContent = message;
-        if (type === 'success') {
-            feedbackMessage.style.color = '#25D366'; 
-        } else if (type === 'error') {
-            feedbackMessage.style.color = '#ff4d4d';
-        } else {
-            feedbackMessage.style.color = 'var(--text-primary)';
-        }
-    };
+    const submitBtn = document.getElementById('submit-feedback');
 
-    // --- 2. THEME TOGGLE LOGIC ---
-    
-    const applyTheme = (theme) => {
-        if (theme === 'light-mode') {
-            body.classList.add('light-mode');
-        } else {
-            body.classList.remove('light-mode');
-        }
-    };
+    feedbackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
-    applyTheme(savedTheme);
+        // UI Loading State
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+        feedbackMessage.textContent = '';
 
-    if (toggleButton) {
-        toggleButton.addEventListener('click', () => {
-            if (body.classList.contains('light-mode')) {
-                localStorage.setItem('theme', 'dark-mode');
-                applyTheme('dark-mode');
-            } else {
-                localStorage.setItem('theme', 'light-mode');
-                applyTheme('light-mode');
-            }
-        });
-    }
+        const formData = new FormData(feedbackForm);
+        const data = {
+            rating: formData.get('rating'),
+            comment: formData.get('comment')
+        };
 
-    // --- 3. LIVE SEARCH LOGIC ---
-    
-    if (searchInput && matchCards.length > 0) {
-        searchInput.addEventListener('keyup', (e) => {
-            const searchTerm = e.target.value.toLowerCase().trim();
-
-            matchCards.forEach(cardLink => {
-                // Use the data-search attribute for optimized searching
-                const textToSearch = cardLink.getAttribute('data-search');
-                
-                const cardIsVisible = textToSearch.includes(searchTerm);
-
-                // Setting display to 'block'/'none' for filtering
-                cardLink.style.display = cardIsVisible ? 'block' : 'none';
-            });
-        });
-    }
-
-
-    // --- 4. FEEDBACK SUBMISSION (AJAX to PHP Handler) ---
-
-    const submitFeedback = async (rating, comment) => {
-        showMessage("Submitting...", 'neutral');
-
-        try {
-            const response = await fetch('index.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Header to signal PHP that this is an AJAX request
-                    'X-Requested-With': 'XMLHttpRequest' 
-                },
-                body: JSON.stringify({ rating, comment })
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                showMessage(result.message, 'success');
-                // Clear form fields
+        fetch('index.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.status === 'success') {
+                feedbackMessage.style.color = '#00f2ff';
+                feedbackMessage.textContent = 'Thank you! Your feedback has been received.';
                 feedbackForm.reset();
             } else {
-                showMessage(result.message || "An unknown error occurred during submission.", 'error');
+                throw new Error(result.message || 'Submission failed');
             }
-
-        } catch (error) {
-            console.error("Fetch error:", error);
-            showMessage("Network error: Could not reach the server.", 'error');
-        }
-    };
-    
-    if (feedbackForm) {
-        feedbackForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const selectedRating = feedbackForm.querySelector('input[name="rating"]:checked');
-            const comment = document.getElementById('feedback-comment').value;
-
-            if (!selectedRating) {
-                showMessage("Please select a star rating (1-5) before submitting.", 'error');
-                return;
-            }
-
-            if (comment.trim().length < 5) {
-                 showMessage("Please provide a comment longer than 5 characters.", 'error');
-                 return;
-            }
-
-            const ratingValue = parseInt(selectedRating.value, 10);
-            
-            submitFeedback(ratingValue, comment.trim());
+        })
+        .catch(error => {
+            feedbackMessage.style.color = '#ff4444';
+            feedbackMessage.textContent = 'Error: ' + error.message;
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Feedback';
+            setTimeout(() => {
+                feedbackMessage.textContent = '';
+            }, 5000);
         });
-    }
+    });
+
+    // --- Intersection Observer for Scroll Animations ---
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.match-card, .info-section').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(el);
+    });
 });
