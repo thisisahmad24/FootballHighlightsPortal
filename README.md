@@ -139,3 +139,4 @@ Each highlight is an object in the JSON array:
 ---
 
 **Enjoy watching and managing your favorite football highlights in one place! ⚽🔥**
+Currently web runs statically as work is in process to integrate live match scores here.
