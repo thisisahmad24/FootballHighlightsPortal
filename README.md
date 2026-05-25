@@ -19,11 +19,15 @@ This project is optimized for **Vercel**. To deploy:
 - **Responsive**: Fully optimized for mobile and desktop viewing.
 
 ## 🛠️ Tech Stack
-- **Framework**: Next.js 15 (React 19)
+- **Framework**: Next.js 16 (React 19)
 - **Database**: Supabase (PostgreSQL)
 - **Styling**: Vanilla CSS (Premium Custom Design)
 - **Icons**: Lucide React
 - **Animations**: Framer Motion
+
+## ⚙️ API Configuration Note
+The application integrates with API-Football (`v3.football.api-sports.io`). Match highlights are fetched and cached for 1 hour locally to optimize API requests and usage limits.
+
 
 ## 🚀 Local Development
 
